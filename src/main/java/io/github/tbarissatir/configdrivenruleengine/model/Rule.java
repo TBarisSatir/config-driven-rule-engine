@@ -1,4 +1,4 @@
-package io.github.tbarissatir.ruleengine.model;
+package io.github.tbarissatir.configdrivenruleengine.model;
 
 public class Rule {
 
