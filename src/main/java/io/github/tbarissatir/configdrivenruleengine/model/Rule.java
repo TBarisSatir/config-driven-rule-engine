@@ -2,19 +2,18 @@ package io.github.tbarissatir.configdrivenruleengine.model;
 
 public class Rule {
 
-    private String condition;
-    private String action;
+    private String name;
+    private RuleType type;
+    private String trigger;
 
-    public  Rule(String condition, String action){
-        this.condition = condition;
-        this.action = action;
+    public Rule(String name, RuleType type, String trigger) {
+        this.name = name;
+        this.type = type;
+        this.trigger = trigger;
     }
 
-    public String getCondition(){
-        return condition;
-    }
-
-    public String getAction(){
-        return action;
-    }
+    public String getName() { return name; }
+    public RuleType getType() { return type; }
+    public String getTrigger() { return trigger; }
 }
+

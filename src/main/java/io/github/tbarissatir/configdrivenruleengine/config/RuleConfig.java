@@ -1,7 +1,7 @@
 package io.github.tbarissatir.configdrivenruleengine.config;
 
 import io.github.tbarissatir.configdrivenruleengine.engine.RuleEngine;
-import io.github.tbarissatir.configdrivenruleengine.model.Rule;
+import io.github.tbarissatir.configdrivenruleengine.model.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +17,11 @@ public class RuleConfig {
     @PostConstruct
     public void initRules() {
 
-        ruleEngine.addRule(new Rule("error", "BLOCK"));
-        ruleEngine.addRule(new Rule("urgent", "PRIORITY"));
-        ruleEngine.addRule(new Rule("todo", "NORMAL"));
+        ruleEngine.addRule(new Rule("PROFANITY_FILTER", RuleType.BLOCK, null));
+        ruleEngine.addRule(new Rule("TOO_SHORT", RuleType.WARNING, null));
+        ruleEngine.addRule(new Rule("SPAM_DETECTION", RuleType.BLOCK, null));
+        ruleEngine.addRule(new Rule("SECURITY_RISK", RuleType.BLOCK, null));
+        ruleEngine.addRule(new Rule("URGENT_FLAG", RuleType.INFO, "urgent"));
     }
 }
+
