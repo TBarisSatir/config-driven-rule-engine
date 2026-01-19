@@ -23,7 +23,8 @@ public class RuleEngineController {
         return new RuleEvaluationResponse(
                 result.isMatched(),
                 result.getRuleName(),
-                result.isWarning()
+                result.isWarning(),
+                result.getRuleMsg()
         );
     }
 

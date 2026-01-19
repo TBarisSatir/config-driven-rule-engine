@@ -25,13 +25,13 @@ public class RuleEngine {
 
                 case "PROFANITY_FILTER":
                     if (input.matches(".*(fuck).*")) { //input genişletilebilir.
-                        return new EvaluationResult(true, false, rule.getName());
+                        return new EvaluationResult(true, false, rule.getName(), "Content flagged as inappropriate");
                     }
                     break;
 
                 case "TOO_SHORT":
                     if (input.length() < 5) {
-                        return new EvaluationResult(false, true, rule.getName());
+                        return new EvaluationResult(false, true, rule.getName(), "Content is too short");
                     }
                     break;
 
@@ -42,26 +42,26 @@ public class RuleEngine {
                     for (String w : words) {
                         freq.put(w, freq.getOrDefault(w,0)+1);
                         if (freq.get(w) >= 3) {
-                            return new EvaluationResult(true, false, rule.getName());
+                            return new EvaluationResult(true, false, rule.getName(), "Content marked as spam.");
                         }
                     }
                     break;
 
                 case "SECURITY_RISK":
                     if (input.matches(".*(password|token|credential|card number).*")) {
-                        return new EvaluationResult(true, false, rule.getName());
+                        return new EvaluationResult(true, false, rule.getName(), "Content may contain sensitive information.");
                     }
                     break;
 
                 case "URGENT_FLAG":
                     if (input.contains("urgent")) {
-                        return new EvaluationResult(false, false, rule.getName());
+                        return new EvaluationResult(false, false, rule.getName() , "Content flagged as urgent.");
                     }
                     break;
             }
         }
 
-        return new EvaluationResult(false, false, null);
+        return new EvaluationResult(false, false, null, "None.");
     }
 }
 
