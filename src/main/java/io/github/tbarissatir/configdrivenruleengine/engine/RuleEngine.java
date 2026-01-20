@@ -13,6 +13,8 @@ public class RuleEngine {
 
     private final List<Rule> rules = new ArrayList<>();
 
+    private static final Logger log = LoggerFactory.getLogger(RuleEngine.class);
+
     public void addRule(Rule rule) {
         rules.add(rule);
     }
@@ -60,7 +62,7 @@ public class RuleEngine {
                     break;
             }
         }
-
+        log.debug("Evaluating input against {} rules", rules.size());
         return new EvaluationResult(false, false, null, "None.");
     }
 }
