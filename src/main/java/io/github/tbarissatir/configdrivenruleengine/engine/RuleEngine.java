@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class RuleEngine {
 
@@ -21,18 +24,21 @@ public class RuleEngine {
 
     public EvaluationResult evaluate(String input) {
 
+        log.debug("Starting rule evaluation. ruleCount={}, input='{}'",
+                rules.size(), input);
+
         for (Rule rule : rules) {
 
             switch (rule.getName()) {
 
                 case "PROFANITY_FILTER":
-                    if (input.matches(".*(fuck).*")) { //input genişletilebilir.
+                    if (input.matches(".*(fuck).*")) { //genişletilmeli. hepsini buraya yazamam todo : Fix
                         return new EvaluationResult(true, false, rule.getName(), "Content flagged as inappropriate");
                     }
                     break;
 
                 case "TOO_SHORT":
-                    if (input.length() < 5) {
+                    if (input.trim().length() < 10) {
                         return new EvaluationResult(false, true, rule.getName(), "Content is too short");
                     }
                     break;
@@ -57,12 +63,12 @@ public class RuleEngine {
 
                 case "URGENT_FLAG":
                     if (input.contains("urgent")) {
-                        return new EvaluationResult(false, false, rule.getName() , "Content flagged as urgent.");
+                        return new EvaluationResult(false, true, rule.getName(), "Task marked as urgent.");
                     }
                     break;
             }
         }
-        log.debug("Evaluating input against {} rules", rules.size());
+        log.debug("No rules matched");
         return new EvaluationResult(false, false, null, "None.");
     }
 }
